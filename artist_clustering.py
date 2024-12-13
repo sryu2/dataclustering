@@ -1,7 +1,7 @@
 import csv
 from gurobipy import Model, GRB, quicksum
 
-# Step 1: Load the Data from a Local CSV File
+# Load the Data from a Local CSV File
 def load_data(file_path):
     data = []
     with open(file_path, mode='r') as file:
@@ -16,7 +16,7 @@ def load_data(file_path):
             data.append(row)
     return data
 
-# Step 2: Define the Ideal Artist Profile and Weights
+# Define the Ideal Artist Profile and Weights
 ideal_artist = {
     'Number of Songs (Spotify)': 3,  # At least 3 songs
     'Monthly listeners (Spotify)': 5000,  # Greater than 5,000
@@ -43,7 +43,7 @@ weights = {
     'TikTok Following': 1
 }
 
-# Step 3: Calculate Weighted Manhattan Distance
+# Calculate Weighted Manhattan Distance
 def calculate_distance(row, ideal, weights):
     distance = 0
     for feature, ideal_value in ideal.items():
@@ -64,7 +64,7 @@ def calculate_all_distances(data, ideal, weights):
         row['Distance_to_Ideal'] = calculate_distance(row, ideal, weights)
     return data
 
-# Step 4: Formulate and Solve the Optimization Model
+# Formulate and Solve the Optimization Model
 def cluster_artists(data, min_ready_artists=5):
     model = Model("Artist Clustering")
 
@@ -88,7 +88,7 @@ def cluster_artists(data, min_ready_artists=5):
 
     return data
 
-# Step 5: Main Function to Run the Entire Workflow
+# Main Function to Run the Entire Workflow
 def main():
     # Path to your local CSV file
     file_path = 'artist_data.csv'
